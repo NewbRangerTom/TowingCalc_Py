@@ -21,17 +21,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DC_Trailer.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TowingCalc_Py.py" />
     <Compile Include="Trailer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Truck.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="validate.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,83 +1,195 @@
 """ Punch List:
   1. add error check for invalid input to all input variables
 """
-import validate
 import Truck
-import DC_Trailer  # a dataclass version of the Trailer class
-"""  Trailer.py Class has been depricated by DC_Trailer.py.  Either class file can be used.  """
-#import Trailer    # to use Trailer class, be sure to change all instances of DC_Trailer to Trailer
+import Trailer
 
 myTruck = Truck
-myTrailer = DC_Trailer
+myTrailer = Trailer
 
 print("Towing Calculator v3.7.29.2021 python")
+print('update v8.25.2021')
 print("User assumes all risk when using this program.\nIt is the USER's responsibility to verify all weight capacities\nand limits of vehicle and cargo before towing anything.\n")
 ##### !!!! BEGIN TRUCK INPUT !!!! #####
 
 while True:
     myTruck.GVWR = input('\nEnter truck Gross Vehicle Weight Rating (GVWR): ')
-    if myTruck.GVWR == '':
-        print('GVWR can not be blank')
-        continue
-    elif int(myTruck.GVWR) == 0:
-        print('GVWR can not be 0')
+    if myTruck.GVWR == '' or int(myTruck.GVWR) == 0 or int(myTruck.GVWR) < 0:
+        print('GVWR can not be blank, less than 0, or 0.')
         continue
     elif int(myTruck.GVWR) > 0:
         break
 
+#while True:
+#    myTruck.GVWR = input('\nEnter truck gross Vehicle Weight Rating (GVWR): ')
+#    try:
+#        myTruck.GVWR = int(myTruck.GVWR) + 0
+#    except:
+#        print('GVWR can not be blank or non digit characters')
+#        continue
+#    if int(myTruck.GVWR) <= 0:
+#        print('GVWR must be greater than 0.')
+#        continue
+
 while True:
     myTruck.GCWR = input("\nEnter truck Gross Combined Weight Rating (GCWR): ")
-    if myTruck.GCWR == '':
-        print('GCWR can not be blank')
-        continue
-    elif int(myTruck.GCWR) == 0:
-        print('GCWR can not be 0')
+    if myTruck.GCWR == '' or int(myTruck.GCWR) == 0 or int(myTruck.GCWR) <0:
+        print('GCWR can not be blank, less than 0, or 0.')
         continue
     elif int(myTruck.GCWR) > 0:
         break
 
-myTruck.payloadCapacity = int(input("\nEnter truck payload capacity: "))
+while True:
+    myTruck.payloadCapacity = input("\nEnter truck payload capacity: ")
+    if myTruck.payloadCapacity == '' or int(myTruck.payloadCapacity) == 0 or int(myTruck.payloadCapacity) < 0:
+        print('Payload Capacity can not be blank, less than 0, or 0.')
+        continue
+    elif int(myTruck.payloadCapacity) > 0:
+        myTruck.payloadCapacity = int(myTruck.payloadCapacity)
+        break
 
-myTruck.BedCargoWeight = int(input("\nHow much does the bed cargo weight: "))
+while True:
+    myTruck.BedCargoWeight = input("\nHow much does the bed cargo weight (press ENTER for 0): ")
+    if myTruck.BedCargoWeight == '':
+        myTruck.BedCargoWeight = 0
+        print('Value set to 0.')
+        break
+    elif int(myTruck.BedCargoWeight) < 0:
+        print('Bed Cargo Weight can not be less than 0.')
+        continue
+    elif int(myTruck.BedCargoWeight) >= 0:
+        break
 
-myTruck.passWeight = int(input("\nHow much do the driver and all passengers weight: "))
+while True:
+    myTruck.passWeight = input("\nHow much do the driver and all passengers weight: ")
+    if myTruck.passWeight == '' or int(myTruck.passWeight) == 0 or int(myTruck.passWeight) < 0:
+        print('Passenger Weight includes driver and can not be blank, less than 0, or 0.')
+        continue
+    elif int(myTruck.passWeight) > 0:
+        break
 
-myTruck.IntCargoWeight = int(input("\nHow much does the interior cargo weight: "))
+while True:
+    myTruck.IntCargoWeight = input("\nHow much does the interior cargo weight: ")
+    if myTruck.IntCargoWeight == '':
+        myTruck.IntCargoWeight = 0
+        print('Value set to 0.')
+        break
+    elif int(myTruck.IntCargoWeight) < 0:
+        print('Interior cargo weight can not be less than 0.')
+        continue
+    elif int(myTruck.IntCargoWeight) >= 0:
+        break
 
 ##### !!!! BEGIN TRAILER INPUT !!!! ####
 print("\nTrailer info:")
 
-myTrailer.GVWR = int(input("\nEnter trailer GVWR (the maximum fully loaded weight of the trailer): "))
-
-myTrailer.UVW = int(input("\nEnter trailer Unloaded Vehicle Weight (UVW): "))
 
 while True:
-    myTrailer.tonguePercent = input("\nEnter the tongue weight perecentage (if not available use 12.5): ")
+    myTrailer.GVWR = input("\nEnter trailer GVWR (the maximum fully loaded weight of the trailer): ")
+    if myTrailer.GVWR == '' or int(myTrailer.GVWR) == 0 or int(myTrailer.GVWR) < 0:
+        print('GVWR can not be blank, less than 0, or 0.')
+        continue
+    elif int(myTrailer.GVWR) > 0:
+        break
+
+while True:
+    myTrailer.UVW = input("\nEnter trailer Unloaded Vehicle Weight (UVW): ")
+    if myTrailer.UVW == '' or int(myTrailer.UVW) == 0 or int(myTrailer.UVW) < 0:
+        print('UVW can n ot be blank, less than 0, or 0.')
+        continue
+    elif int(myTrailer.UVW) > 0:
+        break
+
+while True:
+    myTrailer.tonguePercent = input('\nEnter the tongue weight perecentage (if not available press "Enter" to use default value): ')
     if myTrailer.tonguePercent == '':
-        print('Default value 12.5 accepted')
         myTrailer.tonguePercent = 12.5
-        float(myTrailer.tonguePercent)
+        print('Default value 12.5 accepted')
         break
     elif float(myTrailer.tonguePercent) > 0.0:
-        float(myTrailer.tonguePercent)
         break
     elif int(myTrailer.tonguePercent) == 0:
         print('Percentage can not be 0')
         continue
 
-myTrailer.CargoWeight = int(input("\nEnter trailer cargo weight: "))
+while True:
+    myTrailer.CargoWeight = input("\nEnter trailer cargo weight: ")
+    if myTrailer.CargoWeight == '':
+       myTrailer.CargoWeight = 0
+       print('weight set to 0.')
+       break
+    elif int(myTrailer.CargoWeight) < 0:
+        print('Cargo weight can not be less than 0.')
+        continue
+    elif int(myTrailer.CargoWeight) >= 0:
+        break
 
-myTrailer.AddedFeatureWeight = int(input("\nEnter weight of any added features: "))
+while True:
+    myTrailer.AddedFeatureWeight = input("\nEnter weight of any added features: ")
+    if myTrailer.AddedFeatureWeight == '': 
+        myTrailer.AddedFeatureWeight = 0
+        print('weight set to 0.')
+        break
+    elif int(myTrailer.AddedFeatureWeight) < 0:
+        print('Added features weight can not be less than 0.')
+        continue
+    elif int(myTrailer.AddedFeatureWeight) >= 0:
+        break
 
-myTrailer.batteryWeight = int(input("\nEnter trailer battery weight (if equipped): "))
+while True:
+    myTrailer.batteryWeight = input("\nEnter trailer battery weight (if equipped): ")
+    if myTrailer.batteryWeight == '':
+        myTrailer.batteryweight = 0
+        print('weight set to 0.')
+        break
+    elif int(myTrailer.batteryWeight) < 0:
+        print('Battery weight can not be less than 0.')
+        continue
+    elif int(myTrailer.batteryWeight) >= 0:
+        break
 
-myTrailer.waterCapacity = int(input("\nEnter water capacity (of water heater and water tank) in gallons: "))
+while True:
+    myTrailer.waterCapacity = input("\nEnter water capacity (of water heater and water tank) in gallons: ")
+    if myTrailer.waterCapacity == '':
+       myTrailer.waterCapacity = 0
+       print('Capaity set to 0.')
+       break
+    elif int(myTrailer.waterCapacity) < 0:
+        print('Water capacity can not be less than 0.')
+        continue
+    elif int(myTrailer.waterCapacity) >= 0:
+        break
 
-myTrailer.fuelType = input("\nEnter the type of fuel (diesel or regular): ")
+fuel_type = input('\nEnter 1 or 2 for fuel type: \n 1. Regular \n 2. Diesel \n')
 
-myTrailer.FuelCapacity = int(input("\nEnter the trailer fuel capacity (cans and or generators): "))
+if fuel_type == '1' :
+    myTrailer.fuelType = 'regular'
+if fuel_type == '2' :
+    myTrailer.fuelType = 'diesel'
 
-myTrailer.GenWeight = int(input("\nEnter the weight of generator(s) (if loaded on/in trailer): "))
+while True:
+    myTrailer.FuelCapacity = input("\nEnter the trailer fuel capacity (cans and or generators): ")
+    if myTrailer.FuelCapacity == '':
+        myTrailer.FuelCapacity = 0
+        print('Capacity set to 0.')
+        break
+    elif int(myTrailer.FuelCapacity) < 0:
+        print('Fuel capacity can not be less than 0.')
+        continue
+    elif int(myTrailer.FuelCapacity) >= 0:
+        break
+
+while True:
+    myTrailer.GenWeight = input("\nEnter the weight of generator(s) (if loaded on/in trailer): ")
+    if myTrailer.GenWeight == '':
+       myTrailer.GenWeight = 0
+       print('Weight set to 0.')
+       break
+    elif int(myTrailer.GenWeight) < 0:
+        print('Generator weight can not be blank or less than 0.')
+        continue
+    elif int(myTrailer.GenWeight) >= 0:
+        break
 
 ##### !!!! BEGIN TRUCK OUTPUT !!!! #####
 print("\n##!!  RESULTS  !!##")
@@ -85,25 +197,25 @@ print("The Towing Capacity is:",(myTruck.Truck.TowCap(Truck)),"lbs.")
 print("The empty curb weight of the truck is (GVWR - payload capacity):",(myTruck.Truck.TrkCurbWeight(Truck)),"lbs.")
 print("The total weight of passengers and cargo is:",(myTruck.Truck.TotPayLoadNoTrl(Truck)),"lbs.")
 print("The loaded curb weight of the truck is:",(myTruck.Truck.TotCurbWeightNoTrl(Truck)),"lbs.")
-if ((myTruck.payloadCapacity) - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.DC_Trailer.hitchWeight(DC_Trailer))) > 0:
-     print("The available payload of your truck is:",round(((myTruck.payloadCapacity) - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.DC_Trailer.hitchWeight(DC_Trailer))),2),"lbs.")
+if myTruck.payloadCapacity - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.Trailer.hitchWeight(Trailer)) > 0:
+     print("The available payload of your truck is:",round(myTruck.payloadCapacity - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.Trailer.hitchWeight(Trailer)),2),"lbs.")
 else :
-    print("Your truck is overloaded by:",round(abs((myTruck.payloadCapacity) - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.DC_Trailer.hitchWeight(DC_Trailer))),2),"lbs.")
+    print("Your truck is overloaded by:",round(abs(myTruck.payloadCapacity - (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.Trailer.hitchWeight(Trailer))),2),"lbs.")
 
 ##### !!!!! BEGIN TRAILER OUTPUT !!!!! #####
-print("The hitch weight of the trailer is:", round(myTrailer.DC_Trailer.hitchWeight(DC_Trailer),2),"lbs.")
-print("The gross estimated weight of the trailer is:", myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, myTruck.Truck.passWeight),"lbs.")
+print("The hitch weight of the trailer is:", round(myTrailer.Trailer.hitchWeight(Trailer),2),"lbs.")
+print("The gross estimated weight of the trailer is:", myTrailer.Trailer.GroEstWeight(Trailer, int(myTruck.passWeight)),"lbs.")
 
-if ((myTrailer.GVWR) - (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight))) > 0 :
-    print("The trailer Occupant and Cargo Carrying capacity has", round((myTrailer.GVWR) - (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight)), 2), "more lbs before it is overloaded.")
+if (int(myTrailer.GVWR) - (myTrailer.Trailer.GroEstWeight(Trailer, int(myTruck.passWeight)))) > 0 :
+    print("The trailer Occupant and Cargo Carrying capacity has", round(int(myTrailer.GVWR) - (myTrailer.Trailer.GroEstWeight(Trailer, int(myTruck.passWeight))), 2), "more lbs before it is overloaded.")
 else :
-    print("The OCCC is:",round(abs((myTrailer.GVWR) - (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight))), 2), "lbs overweight.")
+    print("The OCCC is:",round(abs(int(myTrailer.GVWR) - (myTrailer.Trailer.GroEstWeight(Trailer, int(myTruck.passWeight)))), 2), "lbs overweight.")
 
-print("\nThe truck payload with the trailer is:", (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.DC_Trailer.hitchWeight(DC_Trailer)), "lbs.")
-if (myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight)) > 0 :
-    print("The theorhetical Remaining Towing Capacity is:", (myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight)), "lbs.")
+print("\nThe truck payload with the trailer is:", (myTruck.Truck.TotPayLoadNoTrl(Truck) + myTrailer.Trailer.hitchWeight(Trailer)), "lbs.")
+if (myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + myTrailer.Trailer.GroEstWeight(Trailer, int(myTruck.passWeight)) > 0 :
+    print("The theorhetical Remaining Towing Capacity is:", (myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + myTrailer.Trailer.GroEstWeight(Trailer, int(Truck.passWeight)), "lbs.")
 else :
-    print("Your towing capacity is overloaded by:",(myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + (myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight)),"lbs.")
+    print("Your towing capacity is overloaded by:",(myTruck.Truck.TowCap(Truck) - myTruck.payloadCapacity) + myTrailer.Trailer.GroEstWeight(Trailer, int(Truck.passWeight)),"lbs.")
 
-print("\nThe combined weight of the truck and trailer is:", (myTruck.Truck.TotCurbWeightNoTrl(Truck) + myTrailer.DC_Trailer.GroEstWeight(DC_Trailer, Truck.passWeight) - myTruck.passWeight),"lbs.")
+print("\nThe combined weight of the truck and trailer is:", (myTruck.Truck.TotCurbWeightNoTrl(Truck) + myTrailer.Trailer.GroEstWeight(Trailer, int(Truck.passWeight)) - int(myTruck.passWeight)),"lbs.")
 print("\nEnd of results.\n")
