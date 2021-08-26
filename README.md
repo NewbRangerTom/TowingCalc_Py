@@ -33,7 +33,7 @@ Trailer class to handle trailer variabls and specific functions.
     - occupant and cargo carrying capacity  
     - gross combined weight rating  
 
-**REMOVED 8-26-2021 : Trailer class was sufficient so removed redundant class
+REMOVED 8-26-2021 : Trailer class was sufficient so removed redundant class
 DC_Trailer class is a dataclass refactoring of the Trailer class.  
   - Refactored from Tralier class 7-22-21  
   - The DC_Trailer dataclass defines the required weights for the users specific trailer.  
@@ -45,7 +45,7 @@ DC_Trailer class is a dataclass refactoring of the Trailer class.
     - occupant and cargo carrying capacity  
     - gross combined weight rating  
 
-**REMOVED 8-26-2021 : went a different route for exception handling
+REMOVED 8-26-2021 : went a different route for exception handling
 Validate class is an unfinished exception handler.  
   ** This will probably get refactored or rewritten as a basic function.  
   - The Validate class has two methods for handling exceptions.  
